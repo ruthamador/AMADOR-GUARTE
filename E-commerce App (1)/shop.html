@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOCALLY PRODUCTS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the cart array
+            let cart = [];
+
+            // Function to update the cart count in the header
+            function updateCartCount() {
+                document.getElementById("cart-count").textContent = cart.length;
+            }
+
+            // Function to update the cart display
+            function updateCartDisplay() {
+                const cartItemsContainer = document.getElementById("cart-items");
+                const proceedButton = document.getElementById("proceed-button");
+                cartItemsContainer.innerHTML = ''; // Clear existing cart items
+
+                if (cart.length > 0) {
+                    cart.forEach(item => {
+                        const cartItem = document.createElement("li");
+                        cartItem.textContent = `${item.name} - ₱${item.price}`;
+                        cartItemsContainer.appendChild(cartItem);
+                    });
+                    proceedButton.style.display = "block"; // Show proceed to payment button
+                } else {
+                    proceedButton.style.display = "none"; // Hide proceed button if cart is empty
+                    cartItemsContainer.innerHTML = "<li>Your cart is empty.</li>";
+                }
+            }
+
+            // Add event listeners to all "Add to Cart" buttons
+            const addToCartButtons = document.querySelectorAll('.btn.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productName = this.closest('.product').querySelector('h3').textContent;
+                    const productPrice = this.closest('.product').querySelector('p').textContent.replace('₱', '').trim();
+                    const product = {
+                        name: productName,
+                        price: productPrice
+                    };
+                    cart.push(product);
+                    updateCartCount();
+                    updateCartDisplay();
+                    alert(`${productName} added to cart!`);
+                });
+            });
+
+            // Proceed to payment button event
+            document.getElementById("proceed-button").addEventListener('click', function() {
+                alert("Proceeding to payment...");
+                // You can redirect to the payment page or show payment options
+            });
+
+            // Responsive menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+        // Function to handle the form submission
+        document.getElementById('paymentForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Clear previous messages
+            document.getElementById('confirmationMessage').textContent = '';
+            document.getElementById('errorMessage').textContent = '';
+
+            // Get the selected payment method
+            const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked');
+
+            if (selectedPaymentMethod) {
+                const paymentMethod = selectedPaymentMethod.value;
+
+                // Simulate different responses based on the payment method
+                let confirmationMessage = '';
+                if (paymentMethod === 'cod') {
+                    confirmationMessage = 'Your order will be delivered with Cash on Delivery.';
+                } else if (paymentMethod === 'emoney') {
+                    confirmationMessage = 'Your payment will be processed through E-money services.';
+                }
+
+                // Display the confirmation message
+                document.getElementById('confirmationMessage').textContent = confirmationMessage;
+            } else {
+                // Display error if no payment method is selected
+                document.getElementById('errorMessage').textContent = 'Please select a payment method.';
+            }
+        });
+    
+        });
+
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">LOCALLY PRODUCTS</h1>
+            <nav>
+              
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="cart-count-container">
+            Cart: <span id="cart-count">0</span>
+        </div>
+        
+    </header>
+    <section class="hero">
+        <h2>Buy anything you like.</h2>
+        <p>Discover the amazing local producst of the Philippines!.</p>
+        <a href="#products" class="btn">Start Shopping</a>
+    </section>
+    <section id="products" class="products">
+        <h2>Featured Products</h2>
+        <div class="product-list">
+            <div class="product">
+                <img src="products1.jpg" alt="Product 1">
+                <h3>Bohol Product</h3>
+                <p>₱1000.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="abaca2.jpg" alt="Product 2">
+                <h3> Abaca Bags</h3>
+                <p>₱500.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="makatiproducts.png" alt="Product 3">
+                <h3>Makati Product</h3>
+                <p>₱459.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="abaca bag.jpg" alt="Product 4">
+                <h3>Abaca Bags</h3>
+                <p>₱1200.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="product2.jpg" alt="Product 4">
+                <h3>Bamboo product</h3>
+                <p>₱2057.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="bamboo-products.jpg" alt="Product 4">
+                <h3>Bamboo Products</h3>
+                <p>₱565.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="Bantayan Bamboo.jpg" alt="Product 4">
+                <h3>Bantayan Bamboo</h3>
+                <p>₱350.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="capiz shell craft.jpg" alt="Product 4">
+                <h3>Capiz Shell Craft</h3>
+                <p>₱765.00</p>
+                <button class="btn add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cart" class="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </ul>
+        <button id="proceed-button" style="display:none;">Proceed to Payment</button>
+
+        <div class="payment-container">
+            <h1>Select Payment Method</h1>
+    
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="payment_method_cod">
+                        <input type="radio" id="payment_method_cod" name="payment_method" value="cod" required>
+                        Cash on Delivery
+                    </label>
+                </div>
+    
+                <div class="form-group">
+                    <label for="payment_method_emoney">
+                        <input type="radio" id="payment_method_emoney" name="payment_method" value="emoney" required>
+                        E-money (PayPal, Credit Card, etc.)
+                    </label>
+                </div>
+    
+                <button type="submit">Proceed with Payment</button>
+            </form>
+    
+            <div id="confirmationMessage" class="confirmation-message"></div>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+    </section>
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>At Locally Product, we strive to offer premium products at unmatched prices. Shop effortlessly and experience smooth service!</p>
+    </section>
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Email: locallyproduct@gmail.com</p>
+        <p>Phone: +1 234 567 890</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 LocallyProducts. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

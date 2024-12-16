@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select the form and its inputs
+            const form = document.querySelector('.contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+            
+            // Add submit event listener
+            form.addEventListener('submit', function(event) {
+                // Prevent form submission to allow validation
+                event.preventDefault();
+                
+                // Validate the form fields
+                if (validateForm()) {
+                    // Show a success message
+                    alert("Thank you for your message. We will get back to you shortly!");
+                    
+                    // Reset the form fields
+                    form.reset();
+                }
+            });
+
+            // Function to validate the form
+            function validateForm() {
+                let isValid = true;
+
+                // Check if name is provided
+                if (nameInput.value.trim() === "") {
+                    alert("Please enter your name.");
+                    isValid = false;
+                }
+
+                // Check if email is provided and valid
+                if (emailInput.value.trim() === "") {
+                    alert("Please enter your email.");
+                    isValid = false;
+                } else if (!isValidEmail(emailInput.value)) {
+                    alert("Please enter a valid email address.");
+                    isValid = false;
+                }
+
+                // Check if subject is provided
+                if (subjectInput.value.trim() === "") {
+                    alert("Please enter the subject.");
+                    isValid = false;
+                }
+
+                // Check if message is provided
+                if (messageInput.value.trim() === "") {
+                    alert("Please enter a message.");
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            // Function to check if the email is valid using regex
+            function isValidEmail(email) {
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                return emailRegex.test(email);
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Contact Us</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="contact-page">
+        <h2>Get in Touch</h2>
+        <p>We'd love to hear our products from you! Fill out the form below, and we'll get back to you as soon as possible.</p>
+        <form class="contact-form" action="#" method="post">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Subject of Your Message" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Locally Product. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

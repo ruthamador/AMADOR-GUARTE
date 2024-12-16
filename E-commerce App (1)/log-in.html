@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOCALLY PRODUCTS</title>
+    <style>
+ .body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+.login-container {
+  background: hsl(160, 51%, 65%);
+  padding: 100px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+ align-items: center;
+ margin: auto;
+ justify-content: center;
+  
+
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+    <header>
+<div class="login-container">
+    <h1>Log in</h1>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit">Login</button>
+      <p id="error-message"></p>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle form submission
+      const loginForm = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('error-message');
+
+      loginForm.addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent form from submitting and page reload
+
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+
+          // Validate username and password (mock validation for now)
+          if (username === "user" && password === "password123") {
+              // Encoding the username and password using Base64
+              const encodedCredentials = btoa(username + ':' + password);
+
+              // Redirecting to the shop.html with the encoded credentials as a query string
+              window.location.href = `shop.html?credentials=${encodedCredentials}`;
+              
+              errorMessage.textContent = ''; // Clear error message
+          } else {
+              // Invalid login (Show error message)
+              errorMessage.textContent = 'Invalid username or password. Please try again.';
+          }
+      });
+    });
+
+</script>
+</body>
+</html>
